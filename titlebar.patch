@@ -1,0 +1,108 @@
+diff '--color=auto' --unified --recursive --text src/konsole-20.12.3/src/MainWindow.cpp new/konsole-20.12.3/src/MainWindow.cpp
+--- src/konsole-20.12.3/src/MainWindow.cpp	2021-02-24 20:11:38.000000000 -0300
++++ new/konsole-20.12.3/src/MainWindow.cpp	2021-04-11 00:20:44.255346407 -0300
+@@ -308,7 +308,9 @@
+     if (KonsoleSettings::showWindowTitleOnTitleBar()) {
+         !userTitle.isEmpty() ? caption = userTitle : caption = QStringLiteral(" ");
+     }
+-
++    if (!KonsoleSettings::showAppNameOnTitleBar()) {
++        QApplication::setApplicationDisplayName(QStringLiteral(""));
++    }
+     setCaption(caption);
+ }
+ 
+diff '--color=auto' --unified --recursive --text src/konsole-20.12.3/src/settings/GeneralSettings.ui new/konsole-20.12.3/src/settings/GeneralSettings.ui
+--- src/konsole-20.12.3/src/settings/GeneralSettings.ui	2021-02-24 20:11:38.000000000 -0300
++++ new/konsole-20.12.3/src/settings/GeneralSettings.ui	2021-04-11 00:29:24.661541377 -0300
+@@ -49,7 +49,7 @@
+      <property name="spacing">
+       <number>6</number>
+      </property>
+-     <item row="12" column="1">
++     <item row="13" column="1">
+       <widget class="QCheckBox" name="kcfg_SearchReverseSearch">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+@@ -78,7 +78,7 @@
+        </property>
+       </widget>
+      </item>
+-     <item row="9" column="1">
++     <item row="10" column="1">
+       <widget class="QCheckBox" name="kcfg_SearchCaseSensitive">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+@@ -166,7 +166,20 @@
+        </property>
+       </widget>
+      </item>
+-     <item row="11" column="1">
++    <item row="8" column="1">
++     <widget class="QCheckBox" name="kcfg_ShowAppNameOnTitleBar">
++      <property name="sizePolicy">
++       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
++        <horstretch>0</horstretch>
++        <verstretch>0</verstretch>
++           </sizepolicy>
++          </property>
++          <property name="text">
++           <string>Show application name on the titlebar</string>
++          </property>
++      </widget>
++     </item>
++     <item row="12" column="1">
+       <widget class="QCheckBox" name="kcfg_SearchHighlightMatches">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+@@ -206,7 +219,7 @@
+        </property>
+       </widget>
+      </item>
+-     <item row="8" column="1">
++     <item row="9" column="1">
+       <spacer>
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+@@ -222,7 +235,7 @@
+        </property>
+       </spacer>
+      </item>
+-     <item row="14" column="1">
++     <item row="15" column="1">
+       <layout class="QHBoxLayout" stretch="0,1">
+        <property name="spacing">
+         <number>0</number>
+@@ -268,7 +281,7 @@
+        </property>
+       </widget>
+      </item>
+-     <item row="10" column="1">
++     <item row="11" column="1">
+       <widget class="QCheckBox" name="kcfg_SearchRegExpression">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+@@ -281,7 +294,7 @@
+        </property>
+       </widget>
+      </item>
+-     <item row="13" column="1">
++     <item row="14" column="1">
+       <spacer>
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+diff '--color=auto' --unified --recursive --text src/konsole-20.12.3/src/settings/konsole.kcfg new/konsole-20.12.3/src/settings/konsole.kcfg
+--- src/konsole-20.12.3/src/settings/konsole.kcfg	2021-02-24 20:11:38.000000000 -0300
++++ new/konsole-20.12.3/src/settings/konsole.kcfg	2021-04-11 00:23:04.225262600 -0300
+@@ -23,6 +23,11 @@
+       <tooltip>Show window title set by escape sequence on the titlebar</tooltip>
+       <default>false</default>
+     </entry>
++    <entry name="ShowAppNameOnTitleBar" type="Bool">
++      <label>Show "- Konsole" on the titlebar</label>
++      <tooltip>Show "- Konsole" on the titlebar</tooltip>
++      <default>true</default>
++    </entry>
+     <entry name="AllowMenuAccelerators" type="Bool">
+       <label>Enable menu accelerators</label>
+       <tooltip>Allow users to access top menu through Alt+Key combination</tooltip>
