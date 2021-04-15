@@ -24,7 +24,7 @@ $ makepkg -si
 
 ![](img/img-02.png?raw=true)
 
-## With "— Konsole"
+### With "— Konsole"
 
 ![](img/img-03.png?raw=true)
 
